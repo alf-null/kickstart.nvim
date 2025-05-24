@@ -313,7 +313,8 @@ require('lazy').setup({
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
-  -  -- This is often very useful to both group configuration, as well as handle
+  --
+  -- This is often very useful to both group configuration, as well as handle
   -- lazy loading plugins that don't need to be loaded immediately at startup.
   --
   -- For example, in the following configuration, we use:
@@ -325,7 +326,7 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-{ -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
