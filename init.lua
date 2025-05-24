@@ -158,8 +158,10 @@ vim.o.inccommand = 'split'
 -- Show which line your cursor is on
 vim.o.cursorline = true
 
+vim.o.cursorcolumn = true
+
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 10
+vim.o.scrolloff = 15
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
@@ -292,7 +294,10 @@ require('lazy').setup({
           require('go.format').gofmt()
         end,
         group = format_sync_grp,
-        require('go').setup(),
+        require('go').setup {
+          lsp_semantic_highlights = true,
+          lsp_keymap = true,
+        },
       })
     end,
     event = { 'CmdlineEnter' },
@@ -698,6 +703,9 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+
+      -- Get gopls
+      vim.lsp.enable('gopls', true)
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -726,6 +734,7 @@ require('lazy').setup({
             },
           },
         },
+        gopls = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -796,6 +805,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        go = { 'gopls' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -972,7 +982,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'go' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
